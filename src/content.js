@@ -13,7 +13,7 @@ const readLocalStorage = async (key) => {
 };
 
 (async function () {
-    // await chrome.storage.local.remove('hudu');
+    await chrome.storage.local.remove('hudu');
     try {
         key = await readLocalStorage('hudu');
     } catch {
