@@ -1,19 +1,28 @@
 <html>
-    <head>
-        <link href="popup.css">
-    </head>
-    <body>
-        <div>Hudu+</div>
-        <div>
-            <label for="hudu-api-key" class="form-label">Hudu API Key</label>
-            <input type="password" class="form-control" id="hudu-api-key" placeholder="">
+
+<head>
+    <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+    <div class="p-2 d-flex flex-column gap-2">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+            <div class="display-6">Hudu+</div>
+            <div id="save" class="btn btn-sm btn-primary">Save</div>
         </div>
         <div>
-            <div>
-                <input type="checkbox" id="kb-toggle" name="kb-toggle-state">
-                <label for="kb-toggle">Enable Knowledge Base Tree</label>
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" for="hudu-api-key" >API Key</span>
+                <input type="password" class="form-control" aria-label="Hudu API Key" aria-describedby="hudu-api-key" id="hudu-api-key" />
+            </div>
+            <div>Options:</div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="kb-tree-view" />
+                <label class="form-check-label" for="kb-tree-view">Toggle Tree View for Company KBs</label>
             </div>
         </div>
-        <script src="popup.js"></script>
-    </body>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
 </html>

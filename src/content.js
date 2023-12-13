@@ -12,6 +12,33 @@ const readLocalStorage = async (key) => {
     });
 };
 
+const writeLocalStorage = async (key, value) => {
+    return new Promise((resolve, reject) => {
+        const data = {};
+        data[key] = value;
+
+        chrome.storage.local.set(data, function () {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve();
+            }
+        });
+    });
+};
+
+const clearLocalStorage = async (key) => {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.remove([key], function () {
+            if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+            } else {
+                resolve();
+            }
+        });
+    });
+};
+
 (async function () {
     await chrome.storage.local.remove('hudu');
     try {
