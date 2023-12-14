@@ -1,7 +1,7 @@
 # Hudu+
 _Hudu like a madman_
 
-## NOTE
+## Disclaimer
 
 _This project is NOT affiliated with Hudu.  Use at your own risk._
 
