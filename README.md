@@ -33,4 +33,6 @@ _Not yet supported_
 
 ![after](./assets/after.png)
 
+### (WIP Port) Feature: Hudu Global KB Folder Management
 
+![after](./assets/kb-global-folder-mgmt.png)
