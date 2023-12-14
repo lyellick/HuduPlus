@@ -37,44 +37,12 @@ const clearLocalStorage = async (key) => {
     });
 };
 
-function addSubfolder(button) {
-    const newSubfolder = document.createElement("li");
-    const input = button.parentElement.querySelector("input");
-
-    if (input.value !== '') {
-        const folderName = input.value.trim();
-        newSubfolder.setAttribute("name", input.value);
-        newSubfolder.classList.add("folder");
-        newSubfolder.innerHTML +=
-            `<div class="d-flex flex-row align-items-center justify-content-between"><div>${folderName}</div><div class="d-flex flex-row align-items-center justify-content-center input-group" style="width:12rem;"><input type="text" class="subfolderName form-control form-control-sm" placeholder="Subfolder Name"><button class="addSubfolderButton btn btn-sm btn-outline-light"><i class="bi bi-plus"></i><button class="removeSubfolderButton btn btn-sm btn-outline-light"><i class="bi bi-dash"></i></button></div></div><ul></ul>`;
-        input.value = '';
-        const parentFolder = button.parentElement.parentElement.parentElement;
-        const ul = parentFolder.querySelector("ul");
-        ul.appendChild(newSubfolder);
-
-        const newAddSubfolderButton = newSubfolder.querySelector(
-            ".addSubfolderButton"
-        );
-
-        newAddSubfolderButton.addEventListener("click", () => {
-            addSubfolder(newAddSubfolderButton);
-        });
-
-        const removeSubfolderButton = newSubfolder.querySelector(
-            ".removeSubfolderButton"
-        );
-
-        removeSubfolderButton.addEventListener("click", () => {
-            newAddSubfolderButton.parentElement.parentElement.parentElement.remove();
-        });
-    }
-}
-
 (async function () {
     var save;
 
     await readLocalStorage('options').then((options) => {
         document.getElementById('kb-tree-view').checked = options.kbTreeView;
+        document.getElementById('kb-paste-upload-insert').checked = options.kbPasteUploadInsert;
     }).catch(async (error) => {
         await writeLocalStorage('options',  {});
     });
@@ -90,7 +58,8 @@ function addSubfolder(button) {
         clearTimeout(save);
         await writeLocalStorage('key',  document.getElementById('hudu-api-key').value);
         await writeLocalStorage('options', {
-            'kbTreeView': document.getElementById('kb-tree-view').checked
+            'kbTreeView': document.getElementById('kb-tree-view').checked,
+            'kbPasteUploadInsert': document.getElementById('kb-paste-upload-insert').checked
         });
         save = setTimeout(function() {document.getElementById('save').classList.add('d-none'); } , 1000);
     });
