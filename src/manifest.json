@@ -14,13 +14,12 @@
     }
   ],
   "icons": {
-    "16": "images/huduplus-icon.png",
-    "32": "images/huduplus-icon.png",
-    "128": "images/huduplus-icon.png"
+    "16": "images/huduplus-icon-16.png",
+    "32": "images/huduplus-icon-32.png",
+    "128": "images/huduplus-icon-128.png"
   },
   "permissions": [
-    "storage",
-    "activeTab"
+    "storage"
   ],
   "action": {
     "default_popup": "popup/popup.html"
