@@ -20,3 +20,17 @@ _NOTE Once the extension is loaded, you cannot delete the folder_
 ### Firefox
 
 _Not yet supported_
+
+## Previews
+
+### Extension Preview
+
+![extension](./assets/extension.png)
+
+### Feature: Hudu Company KB Tree View
+
+![before](./assets/before.png)
+
+![after](./assets/after.png)
+
+
