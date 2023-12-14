@@ -8,8 +8,8 @@
     <div class="p-3 d-flex flex-column gap-3">
         <div class="d-flex flex-row align-items-center justify-content-between">
             <div class="d-flex flex-row gap-2 align-items-center">
-                <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo" style="width: 2rem; height: 2rem;"/>
-            <div class="display-6">Hudu+</div>
+                <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo" style="width: 2rem; height: 2rem;" />
+                <div class="display-6">Hudu+</div>
             </div>
             <div id="save" class="p-2 d-none">
                 <div class="spinner-grow small" role="status" style="width: 1rem; height: 1rem;">
@@ -20,8 +20,8 @@
         <div class="d-flex flex-column gap-2">
             <div class="input-group input-group-sm">
                 <span class="input-group-text bg-dark text-light" for="hudu-api-key">API Key</span>
-                <input type="password" class="form-control bg-dark text-light" aria-label="Hudu API Key" aria-describedby="hudu-api-key"
-                    id="hudu-api-key" />
+                <input type="password" class="form-control bg-dark text-light" aria-label="Hudu API Key"
+                    aria-describedby="hudu-api-key" id="hudu-api-key" />
             </div>
             <div class="d-flex flex-column gap-2">
                 <div>Options</div>
@@ -36,7 +36,39 @@
             <div class="d-flex flex-column gap-2">
                 <div>Actions</div>
                 <div class="d-flex flex-column px-2">
-                    <div class="btn btn-sm btn-purple">Manage Global KB Folders</div>
+                    <div class="btn btn-sm btn-purple" data-bs-toggle="modal" data-bs-target="#kb-folder-mgmt">Manage
+                        Global KB Folders</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="kb-folder-mgmt" tabindex="-1" aria-labelledby="kb-folder-mgmt-label" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-content bg-dark text-light">
+                <div class="d-flex flex-row gap-2 border-0 p-3 align-items-center">
+                    <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo" style="width: 2rem; height: 2rem;" />
+                    <div class="modal-title fs-5" id="kb-folder-mgmt-label">KB Global Folder Manager</div>
+                </div>
+                <div class="modal-body border-0 p-3">
+                    <div
+                        class="w-100 h-100 d-flex flex-row align-items-start justify-content-between gap-2 pb-2 overflow-auto">
+                        <div class="w-100 h-100 d-flex flex-column">
+                            <div class="input-group mb-3">
+                                <input type="text" id="rootFolderName" class="form-control form-control-sm"
+                                    placeholder="Root Folder Name" aria-label="Root Folder Name"
+                                    aria-describedby="button-addon2">
+                                <button id="addRootFolderButton" class="btn btn-sm btn-outline-light" type="button">Add
+                                    Root Folder</button>
+                            </div>
+                            <ul id="folderList">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex flex-row align-items-center justify-content-between border-0 p-2">
+                    <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-purple">Apply</button>
                 </div>
             </div>
         </div>
