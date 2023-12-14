@@ -1,4 +1,4 @@
-# HuduPlus
+# Hudu+
 _Hudu like a madman_
 
 ## NOTE
