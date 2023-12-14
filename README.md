@@ -1,3 +1,5 @@
+![icon](./src/images/huduplus-icon-128.png)
+
 # Hudu+
 _Hudu like a madman_
 
