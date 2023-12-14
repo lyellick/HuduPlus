@@ -68,24 +68,27 @@ const clearLocalStorage = async (key) => {
                         });
         
                         const formData = new FormData();
-                        formData.append("record_type", article[0].object_type);
-                        formData.append("record_id", article[0].id);
+                        // formData.append("record_type", article[0].object_type);
+                        // formData.append("record_id", article[0].id);
                         formData.append('file', blob, `${Date.now()}.${ext}`); 
-                        fetch(`/api/v1/public_photos`, {
+                        fetch(`/public_photos?record_type=${article[0].object_type}&record_id=${article[0].id}`, {
                             method: 'POST',
                             body: formData,
                             headers: {
                                 "x-api-key": key
                             }
                         }).then(r => {
-                            console.log(r);
-                            resolve(data ? JSON.parse(data) : {})
+                            return r.json();
                         }).then(data => {
-                            console.log(data)
+                            var image = data.location;
+                            var id = parseInt(image.split("/").slice(-1));
+                            var img = document.getElementById("mytextarea_ifr").contentDocument.body.querySelector(`[src='/public_photo/${id - 1}']`);
+                            img.setAttribute("src", image);
+                            img.setAttribute("data-mce-src", image);
                         }).catch((error) => {
                             console.error("Error:", error);
                         });
-                        // Stop the loop once an image is found
+                        
                         break;
                     }
                 }
