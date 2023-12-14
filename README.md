@@ -1,7 +1,7 @@
 # Hudu+
 _Hudu like a madman_
 
-## NOTE
+## Disclaimer
 
 _This project is NOT affiliated with Hudu.  Use at your own risk._
 
@@ -14,6 +14,7 @@ _This project is NOT affiliated with Hudu.  Use at your own risk._
 * Enable Developer Mode.
 * Press the `Load Unpacked` button
 * From the previously downloaded folder, select the `src` folder
+* Create a [Hudu API Key](https://support.hudu.com/hc/en-us/articles/11422780787735-REST-API) and apply it within the extension.
 
 _NOTE Once the extension is loaded, you cannot delete the folder_
 
