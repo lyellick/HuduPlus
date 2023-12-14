@@ -8,17 +8,27 @@
     <div class="p-2 d-flex flex-column gap-2">
         <div class="d-flex flex-row align-items-center justify-content-between">
             <div class="display-6">Hudu+</div>
-            <div id="save" class="btn btn-sm btn-primary">Save</div>
-        </div>
-        <div>
-            <div class="input-group input-group-sm">
-                <span class="input-group-text" for="hudu-api-key" >API Key</span>
-                <input type="password" class="form-control" aria-label="Hudu API Key" aria-describedby="hudu-api-key" id="hudu-api-key" />
+            <div id="save" class="d-none">
+                <div class="spinner-grow text-dark small" role="status" style="width: 1rem; height: 1rem;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
-            <div>Options:</div>
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="kb-tree-view" />
-                <label class="form-check-label" for="kb-tree-view">Toggle Tree View for Company KBs</label>
+        </div>
+        <div class="d-flex flex-column gap-2">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text" for="hudu-api-key">API Key</span>
+                <input type="password" class="form-control" aria-label="Hudu API Key" aria-describedby="hudu-api-key"
+                    id="hudu-api-key" />
+            </div>
+            <div class="d-flex flex-column">
+                <div>Options:</div>
+                <div class="d-flex flex-column px-2">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="kb-tree-view" />
+                        <label class="form-check-label small" for="kb-tree-view">Show Tree View for Company KB
+                            Root</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

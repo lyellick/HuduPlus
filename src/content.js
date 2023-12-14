@@ -1,10 +1,8 @@
-var key = "";
-
 const readLocalStorage = async (key) => {
     return new Promise((resolve, reject) => {
         chrome.storage.local.get([key], function (result) {
             if (result[key] === undefined) {
-                reject();
+                reject(`Key "${key}" not found in local storage`);
             } else {
                 resolve(result[key]);
             }
@@ -40,42 +38,43 @@ const clearLocalStorage = async (key) => {
 };
 
 (async function () {
-    await chrome.storage.local.remove('hudu');
-    try {
-        key = await readLocalStorage('hudu');
-    } catch {
-        await chrome.storage.local.remove('hudu');
-    }
-
-    if (key === "") {
-        key = prompt("Hudu API Key", "");
-        if (key !== "") {
-            await chrome.storage.local.set({ hudu: key });
+    await readLocalStorage('options').then(async (options) => {
+        if (options.kbTreeView) {
+            const params = new URLSearchParams(window.location.search);
+            const companyIdParam = params.get('company_id');
+            const folderParam = params.get('folder');
+        
+            if (companyIdParam && folderParam === null && location.pathname === "/kba") {
+                await showTree(companyIdParam);
+            } else {
+                console.log("Hudu+: Unable to load API Key.");
+                await chrome.storage.local.remove('hudu');
+            }
         }
-    }
-
-    const params = new URLSearchParams(window.location.search);
-    const companyIdParam = params.get('company_id');
-    const folderParam = params.get('folder');
-
-    if (companyIdParam && folderParam === null && key !== "" && location.pathname === "/kba") {
-        await showTree(companyIdParam);
-    } else {
-        console.log("Hudu+: Unable to load API Key.");
-        await chrome.storage.local.remove('hudu');
-    }
+    }).catch(async (error) => {
+        
+    });
 })();
 
 async function showTree(companyIdParam) {
 
     const companyId = parseInt(companyIdParam);
 
-    await fetchApiData(`/api/v1/articles?company_id=${companyId}`).then(data => {
-        articles = data;
-    });
+    var articles;
+    var folders;
+
     
-    await fetchApiData(`/api/v1/folders?company_id=${companyId}`).then(data => {
-        folders = data;
+
+    await readLocalStorage('key').then(async (key) => {
+        await fetchApiData(`/api/v1/articles?company_id=${companyId}`, key).then(data => {
+            articles = data;
+        });
+
+        await fetchApiData(`/api/v1/folders?company_id=${companyId}`, key).then(data => {
+            folders = data;
+        });
+    }).catch(async (error) => {
+        
     });
 
     const tree = await buildTree(folders, articles);
@@ -92,7 +91,7 @@ async function showTree(companyIdParam) {
     }
 }
 
-function fetchApiData(url) {
+function fetchApiData(url, key) {
     return fetch(url, { headers: { "x-api-key": key } })
         .then(response => response.json())
         .then(data => data.articles || data.folders || [])

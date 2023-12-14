@@ -38,6 +38,8 @@ const clearLocalStorage = async (key) => {
 };
 
 (async function () {
+    var save;
+
     await readLocalStorage('options').then((options) => {
         document.getElementById('kb-tree-view').checked = options.kbTreeView;
     }).catch(async (error) => {
@@ -50,12 +52,13 @@ const clearLocalStorage = async (key) => {
         await writeLocalStorage('key',  '');
     });
 
-    document.getElementById('save').addEventListener('click', async () => {
-        var options = {
+    document.addEventListener('input', async function (evt) {
+        document.getElementById('save').classList.remove('d-none');
+        clearTimeout(save);
+        await writeLocalStorage('key',  document.getElementById('hudu-api-key').value);
+        await writeLocalStorage('options', {
             'kbTreeView': document.getElementById('kb-tree-view').checked
-        };
-        var key = document.getElementById('hudu-api-key').value;
-        await writeLocalStorage('key',  key);
-        await writeLocalStorage('options', options);
+        });
+        save = setTimeout(function() {document.getElementById('save').classList.add('d-none'); } , 1000);
     });
 })();
