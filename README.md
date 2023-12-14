@@ -1,6 +1,4 @@
 # HuduPlus
-Huda Utility Chrome Extension
-
 _Hudu like a madman_
 
 ## NOTE
