@@ -30,7 +30,7 @@ _Not yet supported_
 
 ### Extension Preview
 
-![extension](./assets/extension.png)
+![extension](./assets/hudu-store-01.png)
 
 ### Feature: Hudu Company KB Tree View
 

@@ -1,7 +1,7 @@
 {
   "name": "Hudu+",
   "description": "Hudu like a madman.",
-  "version": "1.1",
+  "version": "1.2",
   "manifest_version": 3,
   "content_scripts": [
     {
