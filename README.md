@@ -3,6 +3,8 @@
 # Hudu+
 _Hudu like a madman_
 
+Check it out on the [Extension Store](https://chromewebstore.google.com/u/1/detail/hudu+/ephjgpphegbbhipfbncfgicnnkidighi?hl=en)!
+
 ## Disclaimer
 
 _This project is NOT affiliated with Hudu.  Use at your own risk._
