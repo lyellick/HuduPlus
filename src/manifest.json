@@ -6,6 +6,8 @@
   "content_scripts": [
     {
       "js": [
+        "scripts/storage.js",
+        "scripts/kb.js",
         "content.js"
       ],
       "matches": [
