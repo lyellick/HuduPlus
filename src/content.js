@@ -44,7 +44,7 @@ const clearLocalStorage = async (key) => {
             const companyIdParam = params.get('company_id');
             const folderParam = params.get('folder');
 
-            if (companyIdParam && folderParam === null && location.pathname === "/kba") {
+            if (folderParam === null && location.pathname === "/kba") {
                 await showTree(companyIdParam);
             }
         }
@@ -62,15 +62,13 @@ const clearLocalStorage = async (key) => {
                         var key = await readLocalStorage('key').then(async (key) => {
                             return key;
                         }).catch(async (error) => { });
-        
+
                         var article = await fetchApiData(`/api/v1/articles?slug=${location.pathname.split("/")[2]}`, key).then(article => {
                             return article;
                         });
-        
+
                         const formData = new FormData();
-                        // formData.append("record_type", article[0].object_type);
-                        // formData.append("record_id", article[0].id);
-                        formData.append('file', blob, `${Date.now()}.${ext}`); 
+                        formData.append('file', blob, `${Date.now()}.${ext}`);
                         fetch(`/public_photos?record_type=${article[0].object_type}&record_id=${article[0].id}`, {
                             method: 'POST',
                             body: formData,
@@ -88,15 +86,13 @@ const clearLocalStorage = async (key) => {
                         }).catch((error) => {
                             console.error("Error:", error);
                         });
-                        
+
                         break;
                     }
                 }
 
-                
+
             });
-        } else {
-            // document.getElementById("mytextarea_ifr").contentDocument.body.removeEventListener("paste", getEventListeners(document.getElementById("mytextarea_ifr")).paste[0]);
         }
     }).catch(async (error) => {
 
@@ -195,38 +191,95 @@ function base64ToBlob(base64String) {
 }
 
 async function showTree(companyIdParam) {
-
-    const companyId = parseInt(companyIdParam);
-
+    var companyId;
     var articles;
     var folders;
 
+    if (companyIdParam) {
+        companyId = parseInt(companyIdParam);
 
+        await readLocalStorage('key').then(async (key) => {
+            await fetchApiData(`/api/v1/articles?company_id=${companyId}`, key).then(data => {
+                articles = data;
+            });
 
-    await readLocalStorage('key').then(async (key) => {
-        await fetchApiData(`/api/v1/articles?company_id=${companyId}`, key).then(data => {
-            articles = data;
-        });
+            await fetchApiData(`/api/v1/folders?company_id=${companyId}`, key).then(data => {
+                folders = data;
+            });
 
-        await fetchApiData(`/api/v1/folders?company_id=${companyId}`, key).then(data => {
-            folders = data;
-        });
-    }).catch(async (error) => {
+            const tree = await buildTree(folders, articles);
 
-    });
+            if (tree !== undefined) {
+                document.getElementsByClassName("index__folders")[0].innerHTML = "";
 
-    const tree = await buildTree(folders, articles);
+                tree.forEach(rootNode => {
+                    walkData(rootNode);
+                });
+            } else {
+                console.log("Hudu+: Bad API Key.");
+                await chrome.storage.local.remove('hudu');
+            }
+        }).catch(async (error) => {
 
-    if (tree !== undefined) {
-        document.getElementsByClassName("index__folders")[0].innerHTML = "";
-
-        tree.forEach(rootNode => {
-            walkData(rootNode);
         });
     } else {
-        console.log("Hudu+: Bad API Key.");
-        await chrome.storage.local.remove('hudu');
+        articles = [];
+        folders = [];
+        var hasArticles = true;
+        var hasFolders = true;
+
+        var key = await readLocalStorage('key').then(async (key) => {
+            return key;
+        }).catch(async (error) => { });
+
+        var articlePage = 1;
+        while (hasArticles) {
+            await fetchApiData(`/api/v1/articles?page=${articlePage}`, key).then(data => {
+                if (data.length > 0) {
+                    articles = [...articles, ...data];
+                } else {
+                    hasArticles = false;
+                }
+            });
+            articlePage++;
+        }
+
+
+        var folderPage = 1;
+        while (hasFolders) {
+            await fetchApiData(`/api/v1/folders?page=${folderPage}`, key).then(data => {
+                if (data.length > 0) {
+                    folders = [...folders, ...data];
+                } else {
+                    hasFolders = false;
+                }
+    
+                folderPage++;
+            });
+        }
+
+        articles = articles.filter(dictionary => dictionary["company_id"] === null);
+        folders = folders.filter(dictionary => dictionary["company_id"] === null);
+
+        const tree = await buildTree(folders, articles);
+
+        if (tree !== undefined) {
+            document.getElementsByClassName("index__folders")[0].innerHTML = "";
+
+            tree.forEach(rootNode => {
+                walkData(rootNode);
+            });
+        } else {
+            console.log("Hudu+: Bad API Key.");
+            await chrome.storage.local.remove('hudu');
+        }
     }
+
+
+
+
+
+
 }
 
 function fetchApiData(url, key) {
