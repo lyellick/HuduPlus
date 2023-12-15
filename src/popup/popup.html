@@ -18,7 +18,12 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-column gap-2">
+        <div id="options" class="d-flex flex-column gap-2">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text bg-dark text-light" for="hudu-instance">Hudu Instance</span>
+                <input type="text" class="form-control bg-dark text-light" aria-label="Hudu Instance"
+                    aria-describedby="hudu-instance" id="hudu-instance" />
+            </div>
             <div class="input-group input-group-sm">
                 <span class="input-group-text bg-dark text-light" for="hudu-api-key">API Key</span>
                 <input type="password" class="form-control bg-dark text-light" aria-label="Hudu API Key"
@@ -34,51 +39,78 @@
                     </div>
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" role="switch" id="kb-paste-upload-insert" />
-                        <label class="form-check-label small" for="kb-paste-upload-insert">Upload and Insert Photo when Pasting Image from Clipboard</label>
+                        <label class="form-check-label small" for="kb-paste-upload-insert">Upload and Insert Photo when
+                            Pasting Image from Clipboard</label>
                     </div>
                 </div>
             </div>
             <div class="d-flex flex-column gap-2">
                 <div>Actions</div>
-                <div class="d-flex flex-column px-2">
-                    <div class="btn btn-sm btn-purple" data-bs-toggle="modal" data-bs-target="#kb-folder-mgmt">Manage
-                        Global KB Folders</div>
+                <div class="d-flex flex-column px-2 gap-2">
+                    <div class="btn btn-sm btn-purple" data-bs-toggle="modal" data-bs-target="#psw-naming-convention">
+                        New Password</div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="kb-folder-mgmt" tabindex="-1" aria-labelledby="kb-folder-mgmt-label" aria-hidden="true">
+    <div class="modal fade" id="psw-naming-convention" tabindex="-1" aria-labelledby="psw-naming-convention-label"
+        aria-hidden="true">
         <div class="modal-dialog modal-fullscreen-sm-down">
             <div class="modal-content bg-dark text-light">
-                <div class="d-flex flex-row gap-2 border-0 p-3 align-items-center">
+                <div class="d-flex flex-row gap-2 align-items-center p-3">
                     <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo" style="width: 2rem; height: 2rem;" />
-                    <div class="modal-title fs-5" id="kb-folder-mgmt-label">KB Global Folder Manager</div>
+                    <div class="display-6">New Password</div>
                 </div>
-                <div class="modal-body border-0 p-3">
-                    <div
-                        class="w-100 h-100 d-flex flex-row align-items-start justify-content-between gap-2 pb-2 overflow-auto">
-                        <div class="w-100 h-100 d-flex flex-column">
-                            <div class="input-group mb-3">
-                                <input type="text" id="rootFolderName" class="form-control form-control-sm"
-                                    placeholder="Root Folder Name" aria-label="Root Folder Name"
-                                    aria-describedby="button-addon2">
-                                <button id="addRootFolderButton" class="btn btn-sm btn-outline-light" type="button">Add
-                                    Root Folder</button>
-                            </div>
-                            <ul id="folderList">
-
-                            </ul>
-                        </div>
+                <div id="password-wrapper" class="modal-body border-0 p-3 d-flex flex-column gap-2">
+                    <div class="tiny">Add a password to Hudu by using this section to keep a consistant naming
+                        convention.</div>
+                        <div id="password-title-preview" company-id="" class="tiny text-center">{CLIENT} - [ "Global" | {LOCATION} ] - {SERVICE} -
+                            {ACCOUNT}</div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-dark text-light" for="company-name">Search Company</span>
+                        <input type="text" class="form-control bg-dark text-light" aria-label="Company Name"
+                            aria-describedby="company-name" id="company-name" />
+                    </div>
+                    <select id="company-select" class="form-select form-select-sm bg-dark text-light"
+                        aria-label="Small select example">
+                        <option selected disabled="disabled">Select Company</option>
+                    </select>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-dark text-light" for="location">Location</span>
+                        <input type="text" class="form-control bg-dark text-light" aria-label="Location"
+                            aria-describedby="location" id="location" />
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-dark text-light" for="service">Service</span>
+                        <input type="text" class="form-control bg-dark text-light" aria-label="Service"
+                            aria-describedby="service" id="service" />
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-dark text-light" for="account">Account</span>
+                        <input type="text" class="form-control bg-dark text-light" aria-label="Account"
+                            aria-describedby="account" id="account" />
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-dark text-light" for="username">Username</span>
+                        <input type="text" class="form-control bg-dark text-light" aria-label="Username"
+                            aria-describedby="username" id="username" />
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-dark text-light" for="password">Password</span>
+                        <input type="password" class="form-control bg-dark text-light" aria-label="Password"
+                            aria-describedby="password" id="password" />
                     </div>
                 </div>
-                <div class="modal-footer d-flex flex-row align-items-center justify-content-between border-0 p-2">
+                <div class="modal-footer d-flex flex-row align-items-center justify-content-between border-0 p-3">
                     <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
-                    <button id="kb-folder-mgmt-apply" type="button" class="btn btn-sm btn-purple">Apply</button>
+                        <button id="psw-naming-convention-apply" type="button"
+                            class="btn btn-sm btn-purple" disabled>Save</button>
                 </div>
             </div>
         </div>
     </div>
     <script src="../static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/global.js"></script>
     <script src="popup.js"></script>
 </body>
 

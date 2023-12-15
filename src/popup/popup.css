@@ -1,6 +1,6 @@
 body,html {
     width: 25rem;
-    height: 25rem;
+    height: 35rem;
 }
 
 .form-check-input:checked {
@@ -15,4 +15,8 @@ body,html {
 
 .btn-purple:hover {
     background-color: #3f109e !important;
+}
+
+.tiny {
+    font-size: 0.775em;
 }

@@ -11,7 +11,7 @@ async function enableKBTreeView(enabled) {
 }
 
 async function enableKBClipboardUpload(enabled) {
-    if (enabled) {
+    if (enabled && document.getElementById("mytextarea_ifr")) {
         document.getElementById("mytextarea_ifr").contentDocument.body.addEventListener("paste", async function (e) {
 
             var items = (e.clipboardData || e.originalEvent.clipboardData).items;
