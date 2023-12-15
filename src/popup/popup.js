@@ -134,7 +134,8 @@ function clearPasswordInputs() {
     document.getElementById('account').value = "" ;
     document.getElementById('username').value = "" ;
     document.getElementById('password').value = "" ;
-    document.getElementById("password-title-preview").setAttribute('company-id', "")
+    document.getElementById("password-title-preview").setAttribute('company-id', "");
+    document.getElementById('psw-naming-convention-apply').setAttribute('disabled', 'disabled')
 }
 
 async function searchCompanies(instance, name, key) {

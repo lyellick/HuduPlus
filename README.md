@@ -38,6 +38,6 @@ _Not yet supported_
 
 ![after](./assets/after.png)
 
-### (WIP Port) Feature: Hudu Global KB Folder Management
+### Feature: Hudu Password Naming Convension Helper
 
-![after](./assets/kb-global-folder-mgmt.png)
+![after](./assets/password-naming-convention.png)
