@@ -71,7 +71,7 @@
     });
 
     document.getElementById('psw-naming-convention').addEventListener('hide.bs.modal', () => {
-        clearPasswordInputs();
+        clearPasswordInputs(true);
     });
 
     document.getElementById('psw-naming-convention-apply').addEventListener('click', () => {
@@ -96,8 +96,17 @@
             }).then(r => {
                 return r.json();
             }).then(data => {
+                console.log(data);
+                document.getElementById('password-alert').innerHTML = `<div class="alert alert-success alert-dismissible fade show px-3 py-2 small mt-2" role="alert">
+                Added password: <a href="${data.asset_password.url}" target="_blank">${data.asset_password.name}</a>
+                <button type="button" class="btn-close small" data-bs-dismiss="alert" aria-label="Close" style="padding:.8rem .8rem"></button>
+              </div>`
                 clearPasswordInputs()
             }).catch((error) => {
+                document.getElementById('password-alert').innerHTML = `<div class="alert alert-danger alert-dismissible fade show px-3 py-2 small mt-2" role="alert">
+                Failed to add password.
+                <button type="button" class="btn-close small" data-bs-dismiss="alert" aria-label="Close" style="padding:.8rem .8rem"></button>
+              </div>`
                 console.error("Error:", error);
             });
         }
@@ -125,7 +134,7 @@ function checkInputs(container, button, exclude = []) {
     }
   }
 
-function clearPasswordInputs() {
+function clearPasswordInputs(alert = false) {
     document.getElementById("company-name").value = "";
     document.getElementById("password-title-preview").innerHTML = `{CLIENT} - [ "Global" | {LOCATION} ] - {SERVICE} - {ACCOUNT}`;
     document.getElementById('company-select').innerHTML = `<option selected disabled="disabled">Select Company</option>`;
@@ -136,6 +145,10 @@ function clearPasswordInputs() {
     document.getElementById('password').value = "" ;
     document.getElementById("password-title-preview").setAttribute('company-id', "");
     document.getElementById('psw-naming-convention-apply').setAttribute('disabled', 'disabled')
+
+    if (alert) {
+        document.getElementById('password-alert').innerHTML = "";
+    }
 }
 
 async function searchCompanies(instance, name, key) {
