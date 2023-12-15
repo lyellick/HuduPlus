@@ -18,7 +18,7 @@ _This project is NOT affiliated with Hudu.  Use at your own risk._
 * Enable Developer Mode.
 * Press the `Load Unpacked` button
 * From the previously downloaded folder, select the `src` folder
-* Create a [Hudu API Key](https://support.hudu.com/hc/en-us/articles/11422780787735-REST-API) and apply it within the extension.
+* Create a [Hudu API Key](https://support.hudu.com/hc/en-us/articles/11422780787735-REST-API) and apply it within the extension. Please note you will need the password access checked if you wish to use the password naming convention helper.
 
 _NOTE Once the extension is loaded, you cannot delete the folder_
 
@@ -38,6 +38,6 @@ _Not yet supported_
 
 ![after](./assets/after.png)
 
-### Feature: Hudu Password Naming Convension Helper
+### Feature: Hudu Password Naming Convention Helper
 
 ![after](./assets/password-naming-convention.png)
