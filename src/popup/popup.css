@@ -3,9 +3,23 @@ body,html {
     height: 35rem;
 }
 
+.bg-secondary {
+    background-color: #343a40 !important;
+}
+
 .form-check-input:checked {
     background-color: #5E17EB !important;
     border-color: #5E17EB !important;
+}
+
+.form-control.bg-dark::placeholder {
+    color: rgba(248,249,250,1) !important;
+    font: .775rem sans-serif;
+}
+
+.form-control.bg-dark.tiny::placeholder {
+    color: rgba(248,249,250,1) !important;
+    font: .675rem sans-serif;
 }
 
 .btn-purple, .btn-purple:active, .btn-purple:visited {
