@@ -4,140 +4,147 @@
     <link href="../static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="popup.css" />
 </head>
-
-<body class="bg-dark text-light">
-    <div class="p-3 d-flex flex-column gap-3">
-        <div class="d-flex flex-row align-items-center justify-content-between">
-            <div class="d-flex flex-row gap-2 align-items-center">
-                <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo" style="width: 2rem; height: 2rem;" />
-                <div class="display-6">Hudu+</div>
+<body class="bg-dark d-flex flex-column no-select" data-bs-theme="dark">
+  <nav class="navbar">
+    <div class="container-fluid">
+      <div class="navbar-brand d-flex align-items-center gap-2">
+        <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo" width="32" height="32" class="d-inline-block align-text-top">
+        <div class="display-6">Hudu+</div>
+      </div>
+      <div id="saving" class="p-2 d-none">
+        <div class="spinner-grow small" role="status" style="width: 1rem; height: 1rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main class="d-flex flex-column flex-grow-1 overflow-auto p-2 container">
+    <!-- Options -->
+    <div id="options" class="d-flex flex-column gap-2 container">
+      <div class="d-flex flex-column gap-2 container mb-2">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-secondary text-light" for="hudu-instance">Hudu Instance</span>
+          <input type="text" class="form-control bg-dark text-light" aria-label="Hudu Instance"
+            aria-describedby="hudu-instance" id="hudu-instance" />
+        </div>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text bg-secondary text-light" for="hudu-api-key">API Key</span>
+          <input type="password" class="form-control bg-dark text-light" aria-label="Hudu API Key"
+            aria-describedby="hudu-api-key" id="hudu-api-key" />
+        </div>
+      </div>
+      <div class="fs-5">Options</div>
+      <div class="d-flex flex-column px-2 gap-2">
+        <div class="form-check form-switch">
+          <input class="form-check-input pointer" type="checkbox" role="switch" id="kb-tree-view" />
+          <label class="form-check-label small pointer" for="kb-tree-view">Show Tree View for Company KB
+            Root</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input pointer" type="checkbox" role="switch" id="kb-paste-upload-insert" />
+          <label class="form-check-label small pointer" for="kb-paste-upload-insert">Upload and Insert Photo when
+            Pasting Image from Clipboard</label>
+        </div>
+      </div>
+    </div>
+    <!-- Actions -->
+    <div class="d-flex flex-column gap-2 container">
+      <div class="fs-5">Actions</div>
+      <div class="d-flex flex-column px-2 gap-2">
+        <div class="btn btn-sm btn-purple" data-bs-toggle="modal" data-bs-target="#password-window">
+          New Password</div>
+      </div>
+    </div>
+  </main>
+  <!-- Password Window -->
+  <div class="modal fade" id="password-window" tabindex="-1" aria-labelledby="password-window-label" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="navbar-brand d-flex align-items-center gap-2">
+              <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo" width="32" height="32" class="d-inline-block align-text-top">
+              <div class="display-6">New Password</div>
             </div>
-            <div id="save" class="p-2 d-none">
+            <div id="password-saving" class="p-2 d-none">
                 <div class="spinner-grow small" role="status" style="width: 1rem; height: 1rem;">
-                    <span class="visually-hidden">Loading...</span>
+                  <span class="visually-hidden">Loading...</span>
                 </div>
-            </div>
+              </div>
+          </div>
+        </nav>
+        <div id="password-wrapper" class="modal-body border-0 py-0 d-flex flex-column gap-2">
+          <div class="small">Add a password to Hudu by using this section to keep a consistant naming
+            convention.</div>
+          <div class="input-group input-group-sm">
+            <label class="input-group-text bg-secondary text-light">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tag-fill"
+                viewBox="0 0 16 16">
+                <path
+                  d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+              </svg>
+            </label>
+            <input id="password-title-preview" company-id="" type="text" class="form-control bg-dark text-light tiny"
+              aria-label="Password Name" aria-describedby="company-name" id="company-name"
+              placeholder='{CLIENT} - [ "Global" | {LOCATION} ] - {SERVICE} - {ACCOUNT}' readonly />
+          </div>
+          <div class="input-group input-group-sm">
+            <label class="input-group-text bg-secondary text-light">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-building-fill" viewBox="0 0 16 16">
+                <path
+                  d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5" />
+              </svg>
+            </label>
+            <input type="text" class="form-control bg-dark text-light" aria-label="Company Name"
+              aria-describedby="company-name" id="company-name" placeholder="Search Company" />
+            <select id="company-select" class="form-select form-select-sm bg-dark text-light"
+              aria-label="Small select example">
+              <option style="display: none">Then Select</option>
+            </select>
+          </div>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-secondary text-light tiny" for="location">Location</span>
+            <input type="text" class="form-control bg-dark text-light" aria-label="Location" aria-describedby="location"
+              id="location" placeholder="Global, City Hall, West Campus, Edgan Office..." />
+          </div>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-secondary text-light tiny" for="service">Service</span>
+            <input type="text" class="form-control bg-dark text-light" aria-label="Service" aria-describedby="service"
+              id="service" placeholder="Firewall, Microsoft, Local Domain, ESXI, ILO, QuickBooks..." />
+          </div>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-secondary text-light tiny" for="account">Account</span>
+            <input type="text" class="form-control bg-dark text-light" aria-label="Account" aria-describedby="account"
+              id="account" placeholder="Local User, Admin, SA, Web User..." />
+          </div>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-secondary text-light tiny" for="username">Username</span>
+            <input type="text" class="form-control bg-dark text-light" aria-label="Username" aria-describedby="username"
+              id="username" />
+          </div>
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-secondary text-light tiny" for="password">Password</span>
+            <input type="password" class="form-control bg-dark text-light" aria-label="Password"
+              aria-describedby="password" id="password" />
+          </div>
+          <div id="password-alert"></div>
         </div>
-        <div id="options" class="d-flex flex-column gap-2">
-            <div class="input-group input-group-sm">
-                <span class="input-group-text bg-secondary text-light" for="hudu-instance">Hudu Instance</span>
-                <input type="text" class="form-control bg-dark text-light" aria-label="Hudu Instance"
-                    aria-describedby="hudu-instance" id="hudu-instance" />
-            </div>
-            <div class="input-group input-group-sm">
-                <span class="input-group-text bg-secondary text-light" for="hudu-api-key">API Key</span>
-                <input type="password" class="form-control bg-dark text-light" aria-label="Hudu API Key"
-                    aria-describedby="hudu-api-key" id="hudu-api-key" />
-            </div>
-            <div class="d-flex flex-column gap-2">
-                <div>Options</div>
-                <div class="d-flex flex-column px-2">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="kb-tree-view" />
-                        <label class="form-check-label small" for="kb-tree-view">Show Tree View for Company KB
-                            Root</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="kb-paste-upload-insert" />
-                        <label class="form-check-label small" for="kb-paste-upload-insert">Upload and Insert Photo when
-                            Pasting Image from Clipboard</label>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex flex-column gap-2">
-                <div>Actions</div>
-                <div class="d-flex flex-column px-2 gap-2">
-                    <div class="btn btn-sm btn-purple" data-bs-toggle="modal" data-bs-target="#psw-naming-convention">
-                        New Password</div>
-                </div>
-            </div>
+        <div class="modal-footer d-flex align-items-center justify-content-between border-0 p-2">
+          <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
+          <button id="password-window-apply" type="button" class="btn btn-sm btn-purple">Save Password</button>
         </div>
+      </div>
     </div>
-    <div class="modal fade" id="psw-naming-convention" tabindex="-1" aria-labelledby="psw-naming-convention-label"
-        aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-sm-down">
-            <div class="modal-content bg-dark text-light">
-                <div class="d-flex flex-column align-items-center justify-content-between p-3 gap-2">
-                    <div class="d-flex flex-row align-items-center justify-content-between w-100">
-                        <div class="d-flex flex-row gap-2 align-items-center">
-                            <img src="../images/huduplus-icon.svg" alt="Hudu+ Logo"
-                                style="width: 2rem; height: 2rem;" />
-                            <div class="display-6">New Password</div>
-                        </div>
-                        <div id="password-save" class="p-2 d-none">
-                            <div class="spinner-grow small" role="status" style="width: 1rem; height: 1rem;">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="small">Add a password to Hudu by using this section to keep a consistant naming
-                        convention.</div>
-                </div>
-                <div id="password-wrapper" class="modal-body border-0 py-0 d-flex flex-column gap-2">
-                    <div class="input-group input-group-sm">
-                        <label class="input-group-text bg-secondary text-light">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-tag-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                        </svg>
-                        </label>
-                        <input id="password-title-preview" company-id="" type="text" class="form-control bg-dark text-light tiny" aria-label="Password Name"
-                            aria-describedby="company-name" id="company-name" placeholder='{CLIENT} - [ "Global" | {LOCATION} ] - {SERVICE} - {ACCOUNT}' readonly />
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <label class="input-group-text bg-secondary text-light">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-fill" viewBox="0 0 16 16">
-                                <path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
-                              </svg>
-                        </label>
-                        <input type="text" class="form-control bg-dark text-light" aria-label="Company Name"
-                            aria-describedby="company-name" id="company-name" placeholder="Search Company" />
-                        <select id="company-select" class="form-select form-select-sm bg-dark text-light"
-                            aria-label="Small select example">
-                            <option style="display: none">Then Select</option>
-                        </select>
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-secondary text-light tiny" for="location">Location</span>
-                        <input type="text" class="form-control bg-dark text-light" aria-label="Location"
-                            aria-describedby="location" id="location"
-                            placeholder="Global, City Hall, West Campus, Edgan Office..." />
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-secondary text-light tiny" for="service">Service</span>
-                        <input type="text" class="form-control bg-dark text-light" aria-label="Service"
-                            aria-describedby="service" id="service"
-                            placeholder="Firewall, Microsoft, Local Domain, ESXI, ILO, QuickBooks..." />
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-secondary text-light tiny" for="account">Account</span>
-                        <input type="text" class="form-control bg-dark text-light" aria-label="Account"
-                            aria-describedby="account" id="account" placeholder="Local User, Admin, SA, Web User..." />
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-secondary text-light tiny" for="username">Username</span>
-                        <input type="text" class="form-control bg-dark text-light" aria-label="Username"
-                            aria-describedby="username" id="username" />
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-secondary text-light tiny" for="password">Password</span>
-                        <input type="password" class="form-control bg-dark text-light" aria-label="Password"
-                            aria-describedby="password" id="password" />
-                    </div>
-                    <div id="password-alert"></div>
-                </div>
-                <div class="modal-footer d-flex flex-row align-items-center justify-content-between border-0 p-3">
-                    <button type="button" class="btn btn-sm btn-dark" data-bs-dismiss="modal">Close</button>
-                    <button id="psw-naming-convention-apply" type="button" class="btn btn-sm btn-purple"
-                        disabled>Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="../static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+  </div>
+  <script src="../static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/global.js"></script>
     <script src="popup.js"></script>
-</body>
+  <!--
+      This HTML file opens when you click on icon from the toolbar.
 
+      To begin the development, run `npm run watch`.
+      To create a production bundle, use `npm run build`.
+    -->
+</body>
 </html>

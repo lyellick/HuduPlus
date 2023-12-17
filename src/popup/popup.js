@@ -23,7 +23,7 @@
     document.getElementById('hudu-api-key').value = key;
 
     document.getElementById("options").addEventListener('input', async function (evt) {
-        document.getElementById('save').classList.remove('d-none');
+        document.getElementById('saving').classList.remove('d-none');
         clearTimeout(save);
         await writeLocalStorage('key', document.getElementById('hudu-api-key').value);
         await writeLocalStorage('instance', document.getElementById('hudu-instance').value);
@@ -31,7 +31,7 @@
             'kbTreeView': document.getElementById('kb-tree-view').checked,
             'kbPasteUploadInsert': document.getElementById('kb-paste-upload-insert').checked,
         });
-        save = setTimeout(function () { document.getElementById('save').classList.add('d-none'); }, 1000);
+        save = setTimeout(function () { document.getElementById('saving').classList.add('d-none'); }, 1000);
     });
 
     let typingTimer;
@@ -49,7 +49,7 @@
     });
 
     async function search() {
-        document.getElementById('password-save').classList.remove('d-none');
+        document.getElementById('password-saving').classList.remove('d-none');
         clearTimeout(save);
         var value = document.getElementById("company-name").value;
         var search = await searchCompanies(instance, value, key);
@@ -60,7 +60,7 @@
             opt.innerHTML = element.name;
             document.getElementById('company-select').appendChild(opt);
         });
-        save = setTimeout(function () { document.getElementById('password-save').classList.add('d-none'); }, 1000);
+        save = setTimeout(function () { document.getElementById('password-saving').classList.add('d-none'); }, 1000);
     }
 
     document.getElementById('company-select').addEventListener('change', function () {
@@ -68,15 +68,15 @@
     });
 
     document.getElementById('password-wrapper').addEventListener('input', () => {
-        checkInputs('password-wrapper', 'psw-naming-convention-apply', ["username", "password-title-preview"])
+        checkInputs('password-wrapper', 'password-window-apply', ["username", "password-title-preview"])
         updateInputs();
     });
 
-    document.getElementById('psw-naming-convention').addEventListener('hide.bs.modal', () => {
+    document.getElementById('password-window').addEventListener('hide.bs.modal', () => {
         clearPasswordInputs(true);
     });
 
-    document.getElementById('psw-naming-convention-apply').addEventListener('click', () => {
+    document.getElementById('password-window-apply').addEventListener('click', () => {
         var body = {
             asset_password: {
                 password: document.getElementById('password').value,
@@ -87,7 +87,7 @@
         };
 
         if (confirm(`Are you sure you want to create \"${body.asset_password.name}\" for ${document.getElementById('company-select').options[document.getElementById('company-select').selectedIndex].text}?`)) {
-            document.getElementById('password-save').classList.remove('d-none');
+            document.getElementById('password-saving').classList.remove('d-none');
             clearTimeout(save);
             var headers = new Headers();
             headers.append("x-api-key", key);
@@ -106,14 +106,14 @@
                 <button type="button" class="btn-close small" data-bs-dismiss="alert" aria-label="Close" style="padding:.8rem .8rem"></button>
               </div>`
                 clearPasswordInputs()
-                save = setTimeout(function () { document.getElementById('password-save').classList.add('d-none'); }, 1000);
+                save = setTimeout(function () { document.getElementById('password-saving').classList.add('d-none'); }, 1000);
             }).catch((error) => {
                 document.getElementById('password-alert').innerHTML = `<div class="alert alert-danger alert-dismissible fade show px-3 py-2 tiny mt-2" role="alert">
                 Failed to add password.
                 <button type="button" class="btn-close small" data-bs-dismiss="alert" aria-label="Close" style="padding:.8rem .8rem"></button>
               </div>`
                 console.error("Error:", error);
-                save = setTimeout(function () { document.getElementById('password-save').classList.add('d-none'); }, 1000);
+                save = setTimeout(function () { document.getElementById('password-saving').classList.add('d-none'); }, 1000);
             });
         }
     });
@@ -159,7 +159,7 @@ function clearPasswordInputs(alert = false) {
     document.getElementById('username').value = "";
     document.getElementById('password').value = "";
     document.getElementById("password-title-preview").setAttribute('company-id', "");
-    document.getElementById('psw-naming-convention-apply').setAttribute('disabled', 'disabled')
+    document.getElementById('password-window-apply').setAttribute('disabled', 'disabled')
 
     if (alert) {
         document.getElementById('password-alert').innerHTML = "";
