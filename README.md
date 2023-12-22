@@ -14,7 +14,7 @@ _This project is NOT affiliated with [Hudu](https://hudu.com/).  Use at your own
 * In Chrome/Edge go to the extensions page (chrome://extensions or edge://extensions).
 * Enable Developer Mode.
 * Press the `Load Unpacked` button
-* From the previously downloaded folder, select the `build` folder
+* From the previously downloaded folder, select the `src` folder
 * Create a [Hudu API Key](https://support.hudu.com/hc/en-us/articles/11422780787735-REST-API) and apply it within the extension. Please note you will need the password access checked if you wish to use the password naming convention helper.
 
 _NOTE Once the extension is loaded, you cannot delete the folder_
