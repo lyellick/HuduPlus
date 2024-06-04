@@ -1,4 +1,4 @@
-# Note: This project is now retired due to the great improvments Hudu has made to the UI. Keep up as an archive.
+# Note: This project is now retired due to the great improvments Hudu has made to the UI. Keeping up as an archive.
 
 # <img src="./src/images/huduplus-icon-128.png" width="45" align="left" style="padding-right:.5rem;">Hudu+
 
