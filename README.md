@@ -1,3 +1,5 @@
+# Note: This project is now retired due to the great improvments Hudu has made to the UI. Keep up as an archive.
+
 # <img src="./src/images/huduplus-icon-128.png" width="45" align="left" style="padding-right:.5rem;">Hudu+
 
 Hudu Like a Madman with the [**Hudu+** chrome extension](https://chromewebstore.google.com/detail/hudu+/ephjgpphegbbhipfbncfgicnnkidighi?hl=en)
